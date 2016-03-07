@@ -21,28 +21,37 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (assign, nonatomic) UIEdgeInsets originalContentInset;
 @property (copy, nonatomic) RefreshingBlock refreshingBlock;
+@property (strong, nonatomic) UIColor *tintColor;
 
 @end
 
 @implementation CGHRefreshControl
-
-
-#pragma mark - life cycle
+#pragma mark - makers
 + (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
                                  refreshingBlock:(RefreshingBlock)refreshingBlock
 {
-    return [[CGHRefreshControl alloc] initWithScrollView:scrollView refreshingBlock:refreshingBlock];
+    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:[UIColor blackColor] refreshingBlock:refreshingBlock];
 }
 
++ (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
+                                   tintColor:(UIColor *)tintColor
+                             refreshingBlock:(RefreshingBlock)refreshingBlock
+{
+    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:tintColor refreshingBlock:refreshingBlock];
+}
+
+#pragma mark - life cycle
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView
+                         tintColor:(UIColor *)tintColor
                    refreshingBlock:(RefreshingBlock)refreshingBlock
 
 {
-    self = [super initWithFrame:CGRectMake(0, -(kTotalHeight + scrollView.contentInset.top), scrollView.frame.size.width, kTotalHeight)];
+    self = [super initWithFrame:CGRectMake((CGRectGetWidth(scrollView.frame) / 2) - 25, -64, 50, 30)];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         self.scrollView = scrollView;
         self.originalContentInset = scrollView.contentInset;
+        self.tintColor = tintColor;
         [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         self.refreshingBlock = refreshingBlock;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -92,13 +101,6 @@
     _topEyesocketLayer.strokeEnd = 0.5f;
 }
 
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat y = scrollView.contentOffset.y;
-    [self animationWith:y];
-}
 - (void)animationWith:(CGFloat)y {
     
     CGFloat flag = self.frame.origin.y * 2.f - 20.f;
@@ -164,7 +166,7 @@
         _eyeFirstLightLayer.lineWidth = 5.f;
         _eyeFirstLightLayer.path = path.CGPath;
         _eyeFirstLightLayer.fillColor = [UIColor clearColor].CGColor;
-        _eyeFirstLightLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _eyeFirstLightLayer.strokeColor = self.tintColor.CGColor;
     }
     return _eyeFirstLightLayer;
 }
@@ -182,7 +184,7 @@
         _eyeSecondLightLayer.lineWidth = 5.f;
         _eyeSecondLightLayer.path = path.CGPath;
         _eyeSecondLightLayer.fillColor = [UIColor clearColor].CGColor;
-        _eyeSecondLightLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _eyeSecondLightLayer.strokeColor = self.tintColor.CGColor;
     }
     return _eyeSecondLightLayer;
 }
@@ -200,7 +202,7 @@
         _eyeballLayer.lineWidth = 1.f;
         _eyeballLayer.path = path.CGPath;
         _eyeballLayer.fillColor = [UIColor clearColor].CGColor;
-        _eyeballLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _eyeballLayer.strokeColor = self.tintColor.CGColor;
         _eyeballLayer.anchorPoint = CGPointMake(0.5, 0.5);
     }
     return _eyeballLayer;
@@ -218,7 +220,7 @@
         _topEyesocketLayer.lineWidth = 1.f;
         _topEyesocketLayer.path = path.CGPath;
         _topEyesocketLayer.fillColor = [UIColor clearColor].CGColor;
-        _topEyesocketLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _topEyesocketLayer.strokeColor = self.tintColor.CGColor;
     }
     return _topEyesocketLayer;
 }
@@ -235,7 +237,7 @@
         _bottomEyesocketLayer.lineWidth = 1.f;
         _bottomEyesocketLayer.path = path.CGPath;
         _bottomEyesocketLayer.fillColor = [UIColor clearColor].CGColor;
-        _bottomEyesocketLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _bottomEyesocketLayer.strokeColor = self.tintColor.CGColor;
     }
     return _bottomEyesocketLayer;
 }

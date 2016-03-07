@@ -15,16 +15,18 @@ typedef void(^RefreshingBlock)();
 
 
 /**
- * 返回一个CGHRefreshControl实例
+ * 创建一个control
  * retrun a "CGHRefreshControl" instance
  */
 + (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
                              refreshingBlock:(RefreshingBlock)refreshingBlock;
+
 /**
- * init control
+ *  创建一个tintColor的control
  */
-- (instancetype)initWithScrollView:(UIScrollView *)scrollView
-                   refreshingBlock:(RefreshingBlock)refreshingBlock;
++ (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
+                                   tintColor:(UIColor *)tintColor
+                             refreshingBlock:(RefreshingBlock)refreshingBlock;
 
 /**
  * 开始执行刷新
