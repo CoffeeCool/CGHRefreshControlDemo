@@ -8,7 +8,6 @@
 
 #import "CGHRefreshControl.h"
 
-#define kTotalHeight 400
 
 @interface CGHRefreshControl()
 
@@ -23,6 +22,7 @@
 @property (copy, nonatomic) RefreshingBlock refreshingBlock;
 @property (strong, nonatomic) UIColor *tintColor;
 
+@property (assign, nonatomic) BOOL refreshing;
 @end
 
 @implementation CGHRefreshControl
@@ -53,6 +53,7 @@
         self.originalContentInset = scrollView.contentInset;
         self.tintColor = tintColor;
         [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+        [scrollView addObserver:self forKeyPath:@"contentInset" options:NSKeyValueObservingOptionNew context:nil];
         self.refreshingBlock = refreshingBlock;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:self];
@@ -73,6 +74,28 @@
     if ([keyPath isEqualToString:@"contentOffset"]) {
         CGFloat offsetY = [[change objectForKey:@"new"] CGPointValue].y + self.originalContentInset.top;
         [self animationWith:offsetY];
+        
+        if (offsetY < -100) {
+            if (!self.refreshing) {
+                self.refreshing = YES;
+                [self.scrollView setContentInset:UIEdgeInsetsMake(-offsetY, self.originalContentInset.left, self.originalContentInset.bottom, self.originalContentInset.right)];
+            }
+        }
+        
+    }
+    if ([keyPath isEqualToString:@"contentInset"]) {
+        
+    }
+}
+
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    if (!newSuperview) {
+        [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+        [self.scrollView removeObserver:self forKeyPath:@"contentInset"];
+        self.scrollView = nil;
     }
 }
 

@@ -16,6 +16,7 @@
 		2AF831FA1C8D15B4001BF826 /* CGHRefreshControlDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831F91C8D15B4001BF826 /* CGHRefreshControlDemoUITests.m */; };
 		2AF8320A1C8D166D001BF826 /* CGHRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF832091C8D166D001BF826 /* CGHRefreshControl.m */; };
 		2AF8320D1C8D17FA001BF826 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8320C1C8D17FA001BF826 /* TableViewController.m */; };
+		2AF832101C8D21FD001BF826 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8320F1C8D21FD001BF826 /* ODRefreshControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		2AF832091C8D166D001BF826 /* CGHRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGHRefreshControl.m; sourceTree = "<group>"; };
 		2AF8320B1C8D17FA001BF826 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		2AF8320C1C8D17FA001BF826 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		2AF8320E1C8D21FD001BF826 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		2AF8320F1C8D21FD001BF826 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 			children = (
 				2AF832081C8D166D001BF826 /* CGHRefreshControl.h */,
 				2AF832091C8D166D001BF826 /* CGHRefreshControl.m */,
+				2AF8320E1C8D21FD001BF826 /* ODRefreshControl.h */,
+				2AF8320F1C8D21FD001BF826 /* ODRefreshControl.m */,
 			);
 			path = CGHRefreshControl;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AF832101C8D21FD001BF826 /* ODRefreshControl.m in Sources */,
 				2AF8320A1C8D166D001BF826 /* CGHRefreshControl.m in Sources */,
 				2AF831D91C8D15B3001BF826 /* AppDelegate.m in Sources */,
 				2AF8320D1C8D17FA001BF826 /* TableViewController.m in Sources */,
