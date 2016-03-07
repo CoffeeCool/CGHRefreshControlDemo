@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		2AF831D61C8D15B3001BF826 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831D51C8D15B3001BF826 /* main.m */; };
 		2AF831D91C8D15B3001BF826 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831D81C8D15B3001BF826 /* AppDelegate.m */; };
-		2AF831DC1C8D15B3001BF826 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831DB1C8D15B3001BF826 /* ViewController.m */; };
 		2AF831DF1C8D15B3001BF826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AF831DD1C8D15B3001BF826 /* Main.storyboard */; };
 		2AF831E11C8D15B3001BF826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AF831E01C8D15B3001BF826 /* Assets.xcassets */; };
 		2AF831E41C8D15B3001BF826 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AF831E21C8D15B3001BF826 /* LaunchScreen.storyboard */; };
 		2AF831EF1C8D15B4001BF826 /* CGHRefreshControlDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831EE1C8D15B4001BF826 /* CGHRefreshControlDemoTests.m */; };
 		2AF831FA1C8D15B4001BF826 /* CGHRefreshControlDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF831F91C8D15B4001BF826 /* CGHRefreshControlDemoUITests.m */; };
+		2AF8320A1C8D166D001BF826 /* CGHRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF832091C8D166D001BF826 /* CGHRefreshControl.m */; };
+		2AF8320D1C8D17FA001BF826 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8320C1C8D17FA001BF826 /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +40,6 @@
 		2AF831D51C8D15B3001BF826 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2AF831D71C8D15B3001BF826 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2AF831D81C8D15B3001BF826 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2AF831DA1C8D15B3001BF826 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2AF831DB1C8D15B3001BF826 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2AF831DE1C8D15B3001BF826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2AF831E01C8D15B3001BF826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AF831E31C8D15B3001BF826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +50,10 @@
 		2AF831F51C8D15B4001BF826 /* CGHRefreshControlDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CGHRefreshControlDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AF831F91C8D15B4001BF826 /* CGHRefreshControlDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHRefreshControlDemoUITests.m; sourceTree = "<group>"; };
 		2AF831FB1C8D15B4001BF826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AF832081C8D166D001BF826 /* CGHRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGHRefreshControl.h; sourceTree = "<group>"; };
+		2AF832091C8D166D001BF826 /* CGHRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGHRefreshControl.m; sourceTree = "<group>"; };
+		2AF8320B1C8D17FA001BF826 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		2AF8320C1C8D17FA001BF826 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +104,11 @@
 		2AF831D31C8D15B3001BF826 /* CGHRefreshControlDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2AF832071C8D163B001BF826 /* CGHRefreshControl */,
 				2AF831D71C8D15B3001BF826 /* AppDelegate.h */,
 				2AF831D81C8D15B3001BF826 /* AppDelegate.m */,
-				2AF831DA1C8D15B3001BF826 /* ViewController.h */,
-				2AF831DB1C8D15B3001BF826 /* ViewController.m */,
+				2AF8320B1C8D17FA001BF826 /* TableViewController.h */,
+				2AF8320C1C8D17FA001BF826 /* TableViewController.m */,
 				2AF831DD1C8D15B3001BF826 /* Main.storyboard */,
 				2AF831E01C8D15B3001BF826 /* Assets.xcassets */,
 				2AF831E21C8D15B3001BF826 /* LaunchScreen.storyboard */,
@@ -138,6 +142,15 @@
 				2AF831FB1C8D15B4001BF826 /* Info.plist */,
 			);
 			path = CGHRefreshControlDemoUITests;
+			sourceTree = "<group>";
+		};
+		2AF832071C8D163B001BF826 /* CGHRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				2AF832081C8D166D001BF826 /* CGHRefreshControl.h */,
+				2AF832091C8D166D001BF826 /* CGHRefreshControl.m */,
+			);
+			path = CGHRefreshControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AF831DC1C8D15B3001BF826 /* ViewController.m in Sources */,
+				2AF8320A1C8D166D001BF826 /* CGHRefreshControl.m in Sources */,
 				2AF831D91C8D15B3001BF826 /* AppDelegate.m in Sources */,
+				2AF8320D1C8D17FA001BF826 /* TableViewController.m in Sources */,
 				2AF831D61C8D15B3001BF826 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
