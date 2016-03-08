@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (assign, nonatomic) UIEdgeInsets originalContentInset;
+@property (assign, nonatomic) CGPoint originalContentOffset;
 @property (copy, nonatomic) RefreshingBlock refreshingBlock;
 @property (strong, nonatomic) UIColor *tintColor;
 
@@ -28,22 +29,19 @@
 @implementation CGHRefreshControl
 #pragma mark - makers
 + (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
-                                 refreshingBlock:(RefreshingBlock)refreshingBlock
 {
-    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:[UIColor blackColor] refreshingBlock:refreshingBlock];
+    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:[UIColor blackColor]];
 }
 
 + (CGHRefreshControl *)controlWithScrollView:(UIScrollView *)scrollView
                                    tintColor:(UIColor *)tintColor
-                             refreshingBlock:(RefreshingBlock)refreshingBlock
 {
-    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:tintColor refreshingBlock:refreshingBlock];
+    return [[CGHRefreshControl alloc] initWithScrollView:scrollView tintColor:tintColor];
 }
 
 #pragma mark - life cycle
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView
                          tintColor:(UIColor *)tintColor
-                   refreshingBlock:(RefreshingBlock)refreshingBlock
 
 {
     self = [super initWithFrame:CGRectMake((CGRectGetWidth(scrollView.frame) / 2) - 25, -64, 50, 30)];
@@ -51,13 +49,11 @@
         self.backgroundColor = [UIColor clearColor];
         self.scrollView = scrollView;
         self.originalContentInset = scrollView.contentInset;
+        self.originalContentOffset = scrollView.contentOffset;
         self.tintColor = tintColor;
         [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         [scrollView addObserver:self forKeyPath:@"contentInset" options:NSKeyValueObservingOptionNew context:nil];
-        self.refreshingBlock = refreshingBlock;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:self];
-        
         [self.layer addSublayer:self.eyeFirstLightLayer];
         [self.layer addSublayer:self.eyeSecondLightLayer];
         [self.layer addSublayer:self.eyeballLayer];
@@ -72,13 +68,20 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"contentOffset"]) {
+        self.originalContentInset = [[change objectForKey:@"new"] UIEdgeInsetsValue];
         CGFloat offsetY = [[change objectForKey:@"new"] CGPointValue].y + self.originalContentInset.top;
         [self animationWith:offsetY];
         
         if (offsetY < -kRefreshingInsetTop) {
             if (!self.refreshing) {
-                self.refreshing = YES;
-                [self.scrollView setContentInset:UIEdgeInsetsMake(-offsetY, self.originalContentInset.left, self.originalContentInset.bottom, self.originalContentInset.right)];
+                if (!self.scrollView.dragging) {
+                    self.refreshing = YES;
+                    [self.scrollView setContentInset:UIEdgeInsetsMake(kRefreshingInsetTop+self.originalContentInset.top, self.originalContentInset.left, self.originalContentInset.bottom, self.originalContentInset.right)];
+                    if (self.refreshingBlock) {
+                        self.refreshingBlock();
+                    }
+                }
+                
             }
         }
         
@@ -104,15 +107,23 @@
     [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
-- (void)startRefreshing
+- (void)startRefreshingWithRefreshingBlock:(RefreshingBlock)refreshingBlock
 {
-    
+    self.refreshingBlock = [refreshingBlock copy];
 }
 
 - (void)endRefrshing
 {
     self.refreshing = NO;
-    [self.scrollView setContentInset:self.originalContentInset];
+    //[self.scrollView setContentInset:self.originalContentInset];
+    //NSLog(@"%f,%f", self.scrollView.contentInset.top, self.scrollView.contentOffset.y);
+    [self.scrollView setContentOffset:self.originalContentOffset animated:YES];
+    //NSLog(@"%f,%f", self.scrollView.contentInset.top, self.scrollView.contentOffset.y);
+    [UIView animateWithDuration:0.4 animations:^{
+        [self.scrollView setContentInset:self.originalContentInset];
+    } completion:^(BOOL finished) {
+    }];
+
 
 }
 
@@ -128,7 +139,7 @@
 
 - (void)animationWith:(CGFloat)y {
     
-    CGFloat flag = self.frame.origin.y * 2.f - 20.f;
+    CGFloat flag = self.frame.origin.y * 2.f;
     if (y < flag) {
         if (self.eyeFirstLightLayer.lineWidth < 5.f) {
             self.eyeFirstLightLayer.lineWidth += 1.f;
