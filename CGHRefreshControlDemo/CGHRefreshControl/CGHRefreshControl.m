@@ -7,7 +7,7 @@
 //
 
 #import "CGHRefreshControl.h"
-
+#define kRefreshingInsetTop 100
 
 @interface CGHRefreshControl()
 
@@ -75,7 +75,7 @@
         CGFloat offsetY = [[change objectForKey:@"new"] CGPointValue].y + self.originalContentInset.top;
         [self animationWith:offsetY];
         
-        if (offsetY < -100) {
+        if (offsetY < -kRefreshingInsetTop) {
             if (!self.refreshing) {
                 self.refreshing = YES;
                 [self.scrollView setContentInset:UIEdgeInsetsMake(-offsetY, self.originalContentInset.left, self.originalContentInset.bottom, self.originalContentInset.right)];
@@ -111,7 +111,9 @@
 
 - (void)endRefrshing
 {
-    
+    self.refreshing = NO;
+    [self.scrollView setContentInset:self.originalContentInset];
+
 }
 
 - (void)setupAnimation {
